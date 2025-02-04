@@ -1,0 +1,36 @@
+{% load static %}
+<div class="weekly-news-area pt-50">
+    <div class="container">
+       <div class="weekly-wrapper">
+            <!-- Section Title -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-tittle mb-30">
+                        <h3>Weekly Top News</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Top Posts -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="weekly-news-active dot-style d-flex dot-style">
+                        {% for post in weekly_top_posts %}
+                        <div class="weekly-single">
+                            <div class="weekly-img">
+                                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid" />
+                            </div>
+                            <div class="weekly-caption">
+                                <span class="color1">{{ post.title }}</span>
+                                <h4><a href="#">{{ post.content|truncatewords:20 }}</a></h4>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p>No weekly top news available at the moment.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+</div>
