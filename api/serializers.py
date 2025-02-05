@@ -1,12 +1,13 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
-from portal_app.models import Category, Comment, Contact, Newsletter, Post, Tag
+from portal_app.models import Category, Comment, Contact, Newsletter, Post, Tag, UserProfile
 
 
 # ORM => Object Relationship Mapping
 # Post.objects.all() => SELECT * FROM posts; => Queryset[<Post 1>, <Post 2>, <Post 3>]
 # Post.objects.create(....)
 class UserSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = User
         fields = [
@@ -39,7 +40,10 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ["id", "name"]
-
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = UserProfile
+        fields = ['id', 'user', 'image', 'address', 'biography']
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -88,3 +92,16 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = "__all__"
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['name'] = user.username
+        
+
+        return token

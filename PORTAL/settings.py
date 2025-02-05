@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'portal_app',
-    'api',
-    'rest_framework',  
+    'api',  
     "drf_yasg",
+    #thirdparty
+     'rest_framework_simplejwt',
+     'rest_framework',  
 ]
 
 MIDDLEWARE = [
@@ -62,6 +64,11 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     )
+}
+SIMPLE_JWT = {
+  # It will work instead of the default serializer(TokenObtainPairSerializer).
+  "TOKEN_OBTAIN_SERIALIZER": "api.serializers.MyTokenObtainPairSerializer",
+  # ...
 }
 
 
