@@ -5,7 +5,7 @@ class TimeStampModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        abstract = True
+        abstract = False
 
 class Category(TimeStampModel):
     name = models.CharField(max_length=100)
